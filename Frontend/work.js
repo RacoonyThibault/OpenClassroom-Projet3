@@ -14,7 +14,7 @@ function generateWorks(works){
         const imageElement = document.createElement("img");
         imageElement.src = workElement.imageUrl;
         const titreElement = document.createElement("figcaption");
-        titreElement.innertext = workElement.title ?? "aucun titre";
+        titreElement.innerText = workElement.title ?? "aucun titre";
 
     // rattachement des balises au DOM
     gallery.appendChild(figure);
