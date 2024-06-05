@@ -66,3 +66,26 @@ buttonFilterHotelsAndRestaurants.addEventListener(`click`, function(){
     generateWorks(Filtercategory)
 })
 
+// Gerer la page loggin
+
+function loginMod (){
+    let formConnect = document.getElementById("LogForm")
+    formConnect.addEventListener(`submit`, function(event){
+        event.preventDefault
+        // creation de la charge utile
+        const connectInfo = {
+            email: event.target.querySelector("[name=email]").value,
+            password: event.target.querySelector("[name=password").value,
+        };
+        // Transformation en JSON
+        const chargeUtile = JSON.stringify(connectInfo);
+        // Appel FETCH
+        fetch("http://localhost:5678/api/users/login",{
+        method:"POST",
+        headers:{"Content-Type": "application/json"},
+        body: chargeUtile,
+        });
+})
+}
+
+

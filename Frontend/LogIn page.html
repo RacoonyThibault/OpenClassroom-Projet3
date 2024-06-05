@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8">
     <title>Sophie Bluel - Architecte d'intérieur - loggin</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,21 +16,21 @@
     <h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
 	<nav>
 		<ul>
-			<li>projets</li>
-			<li>contact</li>
-			<li><span class="login-nav">login</span></li>
+			<li><a href="index.html/#portfolio">projets</a></li>
+			<li><a href="index.html/#contact">contact</a></li>
+			<li><a href="LogIn page.html">login</a></li>
 			<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
 		</ul>
 	</nav>
 </header>
 <section class="login">
 	<h1>Log In</h1>
-<form action="post" class="loginpage">
-		<label for="email">E-mail</label>
-		<input type="email">
-		<label for="password">Mot de passe</label>
-		<input type="password">
-	<input type="submit" value="Se connecter">
+<form action="post" id="LogForm" class="loginpage">
+	<label for="email">E-mail</label>
+	<input type="email" id="email" name="email">
+	<label for="password">Mot de passe</label>
+	<input type="password" id="password" name="password">
+	<input type="submit" value="Se connecter" id="connect">
 	<a href="#">Mot de passe oublié</a>
 </form>
 </section>

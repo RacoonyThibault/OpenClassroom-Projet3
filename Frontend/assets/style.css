@@ -95,6 +95,11 @@ nav li {
 	font-size: 1.2em;
 }
 
+a{
+	color: black;
+	text-decoration: none;
+}
+
 li:hover {
 	color: #B1663C;
 }
@@ -245,6 +250,6 @@ footer nav ul {
 	margin-top: 120px;
 }
 
-.loginpage a:link{
-	color: black;
+.loginpage a{
+	text-decoration: underline;
 }
