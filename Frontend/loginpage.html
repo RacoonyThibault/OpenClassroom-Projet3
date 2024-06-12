@@ -27,9 +27,10 @@
 	<h1>Log In</h1>
 <form action="post" id="LogForm" class="loginpage">
 	<label for="email">E-mail</label>
-	<input type="email" id="email" name="email">
+	<input type="email" id="email" name="email" required>
 	<label for="password">Mot de passe</label>
-	<input type="password" id="password" name="password" autocomplete="on">
+	<input type="password" id="password" name="password" autocomplete="on" required>
+	<p id="invalid-login">! ATTENTION ! E-mail ou mot de passe invalide</p>
 	<input type="submit" value="Se connecter" id="connect">
 	<a href="#">Mot de passe oublié</a>
 </form>

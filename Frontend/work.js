@@ -66,3 +66,59 @@ buttonFilterHotelsAndRestaurants.addEventListener(`click`, function(){
     generateWorks(Filtercategory)
 })
 
+// changement de la page si token
+
+const tokens = localStorage.getItem("token")
+
+if (tokens){
+    document.getElementById("login-link").style.display = "none";
+    document.getElementById("logout-link").style.display = "block";
+    document.getElementById("modify-banner").style.visibility = "visible";
+}else{}
+
+// Fonctionnalité logout efface le token
+
+const logOutLink = document.getElementById("logout-link");
+logOutLink.addEventListener("click", function(){
+    localStorage.removeItem("token");
+})
+
+// fonctionnalité lancé la modale
+
+// declaration de la variable modal null qui nous permettra de savoir qu'elle modal est ouverte
+let modal = null;
+
+// fonction d'ouverture de la modal + gestion aria
+const openModal = function (e) {
+    e.preventDefault()
+    const target = document.querySelector(e.target.getAttribute('href'))
+    target.style.display = null;
+    target.removeAttribute('aria-hidden')
+    target.setAttribute('aria-modal', 'true')
+    modal = target
+    modal.addEventListener('click', closeModal)
+    modal.querySelector('.js-modal-close').addEventListener('click', closeModal)
+    modal.querySelector('.modal-wrapper').addEventListener('click', stopPropagation)
+}
+
+// fonction pour fermer la modal contenue dans la fonction ouvrir la modal
+const closeModal = function (e) {
+    if(modal === null) return
+    e.preventDefault()
+    modal.style.display = "none";
+    target.setAttribute('aria-hidden')
+    target.removeAttribute('aria-modal')
+    modal.removeEventListener('click', closeModal)
+    modal.querySelector('.modal-wrapper').removeEventListener('click', stopPropagation)
+    modal = null;
+}
+
+// fonction qui empeche la fermeture si on click sur la modal
+const stopPropagation = function (e) {
+    e.stopPropagation()
+}
+
+// selectionne la modal et applique la fonction ouvrir (et fermer) la modal
+document.querySelectorAll('.js-modal').forEach(a => {
+    a.addEventListener('click', openModal)
+})
