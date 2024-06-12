@@ -290,6 +290,10 @@ footer nav ul {
 
 /* style modal */
 
+.js-modal{
+	display: none;
+}
+
 .modal{
 	position: fixed;
 	display: flex;

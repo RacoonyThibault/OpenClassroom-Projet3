@@ -2,6 +2,7 @@
 
 const works = await fetch(`http://localhost:5678/api/works`).then(works => works.json())
 
+//creation fonction pour generer les photo depuis l'api
 
 function generateWorks(works){
     for (let i = 0; i < works.length; i++){
@@ -71,9 +72,10 @@ buttonFilterHotelsAndRestaurants.addEventListener(`click`, function(){
 const tokens = localStorage.getItem("token")
 
 if (tokens){
-    document.getElementById("login-link").style.display = "none";
-    document.getElementById("logout-link").style.display = "block";
-    document.getElementById("modify-banner").style.visibility = "visible";
+    document.getElementById('login-link').style.display = 'none';
+    document.getElementById('logout-link').style.display = 'block';
+    document.getElementById('modify-banner').style.visibility = 'visible';
+    document.querySelector('.js-modal').style.display = 'block';
 }else{}
 
 // Fonctionnalité logout efface le token
