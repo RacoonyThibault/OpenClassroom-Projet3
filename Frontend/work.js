@@ -124,7 +124,7 @@ const stopPropagation = function (e) {
 document.querySelectorAll('.js-modal').forEach(a => {
     a.addEventListener('click', openModal)
 })
-generateModalGallery()
+
 // fonction generation gallery image de la modal
 
 async function generateModalGallery(){
@@ -135,6 +135,8 @@ async function generateModalGallery(){
         const galleryElement = gallery[i];
         const modalGallery = document.querySelector('.modal-photo');
         const modalFigure = document.createElement('figure');
+        const iconContainer = document.createElement('div');
+        const iconDelete = document.createElement('i');
         const imageGallery = document.createElement('img');
         imageGallery.src = galleryElement.imageUrl;
         modalGallery.appendChild(modalFigure);
@@ -142,3 +144,21 @@ async function generateModalGallery(){
         }
     })   
 }
+
+generateModalGallery()
+
+// passage à la deuxieme modal
+
+const addPhotoButton = document.querySelector('.add-photo-button');
+addPhotoButton.addEventListener('click', function(event){
+    event.preventDefault()
+    const modalGallery = document.querySelector('.modal-photo');
+    const galleryTitle = document.getElementById('title-modal-gallery');
+    const modalForm = document.getElementById('modal-form');
+    const modalTitle = document.getElementById('title-modal-add')
+    modalGallery.style.display = "none";
+    galleryTitle.style.display = "none";
+    addPhotoButton.style.display = "none";
+    modalTitle.style.display = 'block';
+    modalForm.style.display = 'flex';
+})

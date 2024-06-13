@@ -307,10 +307,10 @@ footer nav ul {
 }
 
 .modal-wrapper{
-	padding: 30px 50px 30px 50px;
-	width: 725px;
-	height: 90%;
+	padding: 20px;
 	border-radius: 10px;
+	width: 750px;
+	height: 810px;
 	max-width: calc(100vw - 20px);
 	max-height: calc(100vh - 20px);
 	background-color: #fff;
@@ -319,38 +319,53 @@ footer nav ul {
 	align-items: center;
 }
 
-.js-modal-close{
+#switch-button{
 	border: none;
 	color: black;
-	width: 24px;
-	height: 24px;
 	font-size: 24px;
 	align-self: flex-end;
 }
 
-.modal-wrapper h2{
-	text-align: center;
+.js-modal-previous{
+	display: none;
+}
+
+
+#modal1 .modal-wrapper h2{
+	margin: 0;
+}
+
+.modal-wrapper #title-modal-add{
+	display: none;
 }
 
 .modal-photo{
 	display: grid;
-	grid-template-columns: 20% 20% 20% 20% 20%;
+	grid-template-columns: repeat(5, 120px);
+	grid-template-rows: repeat(3, 200px);
 	padding: 20px;
 	border-bottom: 2px solid grey;
+	margin-bottom: 30px;
+	align-content: center;
+    align-items: center;
+    justify-content: center;
 }
 
-.modal-wrapper figure{
-	padding: 20px;
-}
 
 .modal-wrapper img{
-	object-fit: cover;
 	max-width: 100px;
+	max-height: 150px;
+	object-fit: cover;
 }
 
 .add-photo-button{
-	margin-top: 20px;
 	background-color: #1D6154;
 	color: #fff;
+}
 
+/* Deuxieme modal */
+
+#modal-form{
+	display: none;
+	flex-direction: column;
 }
