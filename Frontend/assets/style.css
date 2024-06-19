@@ -284,14 +284,21 @@ footer nav ul {
 	align-content: center;
 }
 
-#modify-button{
-	display: inline-block;
+.modify-button{
+	display: flex;
+	justify-content: center;
+    align-items: baseline;
+	gap: 30px;
 }
+
+
 
 /* style modal */
 
 .js-modal{
 	display: none;
+	gap: 10px;
+	font-weight: bold;
 }
 
 .modal{
@@ -319,24 +326,26 @@ footer nav ul {
 	align-items: center;
 }
 
-#switch-button{
+.switch-modal-button{
+	width: 100%;
+	display: flex;
+	align-items: baseline;
+	justify-content: space-between;
+	height: 40px;
+}
+
+#switch-button-one, #switch-button-two{
 	border: none;
 	color: black;
 	font-size: 24px;
-	align-self: flex-end;
+	margin-bottom: 30px;
 }
-
-.js-modal-previous{
-	display: none;
-}
-
 
 #modal1 .modal-wrapper h2{
 	margin: 0;
-}
+	color: black;
+	font-size: 30px;
 
-.modal-wrapper #title-modal-add{
-	display: none;
 }
 
 .modal-photo{
@@ -351,6 +360,24 @@ footer nav ul {
     justify-content: center;
 }
 
+.modal-photo figure{
+	display: flex;
+}
+
+.modal-photo figure div{
+	position: relative;
+    right: 20px;
+    top: 10px;
+    width: 20px;
+    height: 20px;
+	color: #fff;
+    background: black;
+	text-align: center;
+	display: flex;
+	justify-content: center;
+    align-items: center;
+}
+
 
 .modal-wrapper img{
 	max-width: 100px;
@@ -358,14 +385,103 @@ footer nav ul {
 	object-fit: cover;
 }
 
-.add-photo-button{
-	background-color: #1D6154;
+.modal-wrapper .add-photo-modal-button{
 	color: #fff;
+	background-color: #1D6154;
+	font-size: 16px;
+	width: 36%;
 }
 
+
 /* Deuxieme modal */
+
+#switch-button-two{
+	display: none;
+	border: none;
+	color: black;
+	font-size: 24px;
+}
+
+.modal-wrapper .title-modal-add{
+	display: none;
+}
 
 #modal-form{
 	display: none;
 	flex-direction: column;
+	width: 100%;
+	height: 100%;
+	margin-top: 40px;
 }
+
+.add-photo-button #add-photo{
+	display: none;
+}
+
+#modal-form .add-photo-button{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	height: 30%;
+	align-items: center;
+	border: 2px solid white;
+	background-color : rgba(232, 241, 246, 1);
+	align-self: center;
+	width: 70%;
+	height: 40%;
+	border-radius: 0%;
+	text-align: center;
+	gap: 10px;
+}
+
+#modal-form i{
+	font-size: 110px;
+	opacity: 0.5;
+	color: grey;
+}
+
+#modal-form .add-photo-button .add-input-button, .submit-photo {
+	width: 70%;
+	height: 40px;
+	color: rgba(232, 241, 246, 1);
+	border: 1px solid grey;
+	background-color: grey;
+	opacity: 0.5;
+}
+
+#modal-form #title, #category{
+	align-self: center;
+	width: 70%;
+	height: 50px;
+	border: none;
+	box-shadow: 0px 4px 14px 0px rgba(0, 0, 0, 0.09);
+	margin: 20px 0 20px 0px;
+}
+
+#modal-form .label-category{
+	margin-left: 110px;
+	font-weight: bold;
+	font-size: 17px;
+}
+
+#modal-form .label-title{
+	margin-top: 50px;
+	margin-left: 110px;
+	font-weight: bold;
+	font-size: 17px;
+}
+
+#modal-form .submit-photo{
+	width: 40%;
+	height: 50px;
+	margin-top: 50px;
+	font-size: 18px;
+	align-self: center;
+}
+
+
+
+
+
+
+

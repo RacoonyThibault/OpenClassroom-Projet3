@@ -42,24 +42,35 @@
 		</article>
 	</section>
 	<section id="portfolio">
+		<div class="modify-button">
 		<h2>Mes Projets</h2>
 		<a href="#modal1" class="js-modal"><i class="fa-regular fa-pen-to-square"></i>modifier</a>
-
+		</div>
 		<aside id="modal1" class="modal" aria-hidden="true" role="dialog" aria-labelledby="title-modal" style="display: none;">
 			<div class="modal-wrapper">
-				<button class="js-modal-close" id="switch-button-one"><i class="fa-solid fa-xmark"></i></button>
-				<button class="js-modal-previous" id="switch-button-two"><i class="fa-solid fa-arrow-left"></i></button>
-				<h2 id="title-modal-gallery">Galerie photo</h2>
-				<h2 id="title-modal-add">Ajout photo</h2>
+				<div class="switch-modal-button">
+					<button class="js-modal-previous" id="switch-button-two"><i class="fa-solid fa-arrow-left"></i></button>
+					<button class="js-modal-close" id="switch-button-one"><i class="fa-solid fa-xmark"></i></button>
+				</div>
+				<h2 class="title-modal-gallery">Galerie photo</h2>
+				<h2 class="title-modal-add">Ajout photo</h2>
 				<div class="modal-photo"></div>
 				<form action="post" id="modal-form" class="form-hidden">
-					<input type="file" id="photo">
-					<label for="title">Titre</label>
-					<input type="text" id="title" name="title">
-					<label for="category">Catégorie</label>
-					<input type="text" id="category" name="category">
+					<div class="add-photo-button">
+						<i class="fa-regular fa-image"></i>
+						<button class="add-input-button">
+						<label for="add-photo">+ Ajouter photo</label>
+						<input type="file" id="add-photo">
+						</button>
+						<p>jpg, png : 4mo max</p>
+					</div>
+						<label for="title" class="label-title">Titre</label>
+						<input type="text" id="title" name="title">
+						<label for="category" class="label-category">Catégorie</label>
+						<input type="text" id="category" name="category">
+					<button class="submit-photo">Valider</button>
 				</form>
-				<button class="add-photo-button">Ajouter une photo</button>
+				<button class="add-photo-modal-button">Ajouter une photo</button>
 			</div>
 		</aside>
 		<div class="filter-menu">

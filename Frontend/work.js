@@ -75,7 +75,7 @@ if (tokens){
     document.getElementById('login-link').style.display = 'none';
     document.getElementById('logout-link').style.display = 'block';
     document.getElementById('modify-banner').style.visibility = 'visible';
-    document.querySelector('.js-modal').style.display = 'block';
+    document.querySelector('.js-modal').style.display = 'flex';
 }else{}
 
 // Fonctionnalité logout efface le token
@@ -139,8 +139,14 @@ async function generateModalGallery(){
         const iconDelete = document.createElement('i');
         const imageGallery = document.createElement('img');
         imageGallery.src = galleryElement.imageUrl;
+        modalFigure.setAttribute('id', `figure${galleryElement.id}`);
+        imageGallery.setAttribute('id',`image${galleryElement.id}`);
+        iconContainer.setAttribute('id', `delete${galleryElement.id}`);
+        iconDelete.setAttribute('class',"fa-solid fa-trash-can");
         modalGallery.appendChild(modalFigure);
         modalFigure.appendChild(imageGallery);
+        modalFigure.appendChild(iconContainer);
+        iconContainer.appendChild(iconDelete);
         }
     })   
 }
@@ -149,16 +155,33 @@ generateModalGallery()
 
 // passage à la deuxieme modal
 
-const addPhotoButton = document.querySelector('.add-photo-button');
+const addPhotoButton = document.querySelector('.add-photo-modal-button');
 addPhotoButton.addEventListener('click', function(event){
     event.preventDefault()
     const modalGallery = document.querySelector('.modal-photo');
-    const galleryTitle = document.getElementById('title-modal-gallery');
+    const galleryTitle = document.querySelector('.title-modal-gallery');
     const modalForm = document.getElementById('modal-form');
-    const modalTitle = document.getElementById('title-modal-add')
+    const modalTitle = document.querySelector('.title-modal-add')
     modalGallery.style.display = "none";
     galleryTitle.style.display = "none";
     addPhotoButton.style.display = "none";
     modalTitle.style.display = 'block';
     modalForm.style.display = 'flex';
+    document.querySelector('.js-modal-previous').style.display = 'flex';
+})
+
+const previousButton = document.getElementById('switch-button-two');
+previousButton.addEventListener('click', function(event){
+    event.preventDefault()
+    const modalGallery = document.querySelector('.modal-photo');
+    const galleryTitle = document.querySelector('.title-modal-gallery');
+    const modalForm = document.getElementById('modal-form');
+    const modalTitle = document.querySelector('.title-modal-add')
+    modalGallery.style.display = "grid";
+    galleryTitle.style.display = "block";
+    addPhotoButton.style.display = "block";
+    modalTitle.style.display = 'none';
+    modalForm.style.display = 'none';
+    document.querySelector('.js-modal-previous').style.display = 'none';
+    
 })
