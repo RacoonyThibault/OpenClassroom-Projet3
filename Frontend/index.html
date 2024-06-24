@@ -57,17 +57,19 @@
 				<div class="modal-photo"></div>
 				<form method="post" id="modal-form" class="form-hidden" enctype="multipart/form-data">
 					<div class="add-photo-button">
-						<i class="fa-regular fa-image"></i>
-						<button class="add-input-button">
-						<label for="add-photo">+ Ajouter photo</label>
-						<input type="file" name="file" id="add-photo">
-						</button>
+						<img src="" alt="image upload" id="image-reader">
+						<i class="fa-regular fa-image" id="default-image"></i>
+						<label for="add-photo" id="add-photo-label">+ Ajouter photo</label>
+						<input type="file" name="upload-file" id="add-photo" accept="image/*">
 						<p>jpg, png : 4mo max</p>
 					</div>
 						<label for="title" class="label-title">Titre</label>
-						<input type="text" id="title" name="title">
+						<input type="text" id="title" name="title-file">
 						<label for="category" class="label-category">Catégorie</label>
-						<input type="text" id="category" name="category">
+						<select id="category" name="category-select">
+							<option value="Id1">Objets</option>
+							<option value="Id2">Appartements</option>
+							<option value="Id3">Hotels & restaurants</option>
 						<input type="submit" value="Valider" id="submit-photo">
 				</form>
 				<button class="add-photo-modal-button">Ajouter une photo</button>

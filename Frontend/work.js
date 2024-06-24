@@ -75,7 +75,7 @@ const tokens = localStorage.getItem("token")
 if (tokens){
     document.getElementById('login-link').style.display = 'none';
     document.getElementById('logout-link').style.display = 'block';
-    document.getElementById('modify-banner').style.visibility = 'visible';
+    document.getElementById('modify-banner').style.display = 'block';
     document.querySelector('.js-modal').style.display = 'flex';
 }else{}
 
@@ -232,6 +232,30 @@ previousButton.addEventListener('click', function(event){
 })
 
 
+
+//gestion affichage apercu image
+
+function previewImage(event){
+    const defaultImage = document.getElementById('default-image')
+    const input = event.target;
+    const image = document.getElementById('image-reader')
+    console.log(input.files)
+
+    if (input.files && input.files[0]){
+        const reader = new FileReader();
+
+        reader.onload = function(event){
+            image.src = event.target.result;
+        }
+        defaultImage.style.display = 'none'
+        image.style.display = 'block'
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+document.getElementById('add-photo').addEventListener('change', previewImage)
+
+
 //ajout image
 
 const formAddProject = document.getElementById('modal-form');
@@ -240,9 +264,9 @@ formAddProject.addEventListener('submit', sendProject);
 async function sendProject(event){
     event.preventDefault();
     const formData = new FormData(formAddProject);
-    formData.get('file')
-    formData.get('title')
-    formData.get('category')
+    formData.get('upload-file')
+    formData.get('title-file')
+    formData.get('category-select')
     fetch("http://localhost:5678/api/works",{
         method: 'POST',
         headers: {'Authorization':'Bearer ' + tokens},

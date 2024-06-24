@@ -101,6 +101,10 @@ nav li {
 	font-size: 1.2em;
 }
 
+nav li img{
+	width: 20px;
+}
+
 a{
 	color: black;
 	text-decoration: none;
@@ -276,12 +280,13 @@ footer nav ul {
 
 #modify-banner{
 	background-color: black;
-	width: 100%;
+	width: 130%;
 	height: 60px;
 	color: white;
-	visibility: hidden;
+	display: none;
 	text-align: center;
 	align-content: center;
+	align-self: center;
 }
 
 .modify-button{
@@ -435,18 +440,39 @@ footer nav ul {
 }
 
 #modal-form i{
+	display: block;
 	font-size: 110px;
 	opacity: 0.5;
 	color: grey;
 }
 
-#modal-form .add-photo-button .add-input-button, #submit-photo {
-	width: 70%;
+#image-reader{
+	display: none;
+	font-size: 110px;
+	max-width: none;
+	max-height: 200px;
+}
+
+#modal-form #add-photo-label{
+	width: 40%;
 	height: 40px;
-	color: rgba(232, 241, 246, 1);
-	border: 1px solid grey;
-	background-color: grey;
-	opacity: 0.5;
+	color: #306685;
+	font-size: 20px;
+	border: 1px solid #cbd6dc;
+	background-color: #cbd6dc;
+	border-radius: 60px;
+	text-align: center;
+	padding-top: 10px;
+	font-weight: bold;
+}
+
+#modal-form  #submit-photo{
+	width: 40%;
+	height: 40px;
+	color: white;
+	border: 1px solid #cbd6dc;
+	background-color: #cbd6dc;
+	border-radius: 60px;
 }
 
 #modal-form #title, #category{
@@ -478,6 +504,8 @@ footer nav ul {
 	font-size: 18px;
 	align-self: center;
 }
+
+
 
 
 
