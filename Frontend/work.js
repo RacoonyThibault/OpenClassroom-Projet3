@@ -234,45 +234,43 @@ previousButton.addEventListener('click', function(event){
 
 //ajout image
 
-async function sendNewProject(){
-    let formAddProject = document.getElementById('modal-form');
-    let inputPhoto = document.getElementById('add-photo')
-    let inputTitle = document.getElementById('title')
-    let InputCategory = document.getElementById('category')
-    
-    formAddProject.addEventListener('submit', function(event){
-        event.preventDefault()
-        const newProjetInfo = {
-        image : inputPhoto.value,
-        title : inputTitle.value,
-        category : InputCategory.value,
-        };
-        const chargeUtile = JSON.stringify(newProjetInfo)
-        var responseClone;
-        fetch('http://localhost:5678/api/works',{
-            method: 'POST',
-            headers: {'accept': 'application/json',
-                'Content-Type' : 'multipart/form-data',
-                'Authorization':'Bearer ' + tokens},
-            body: chargeUtile,
-        }).then(function(response){
-            responseClone = response.clone();
-            return response.json()
-        })
-        .then(function(response){
-            console.log(response)},
-            function(rejectionReason){
-                console.log('Error parsing JSON from response', rejectionReason,responseClone);
-                responseClone.text()
-                .then(function(bodyText){
-                    console.log('Received the following instead of valid JSON:', bodyText);
-                })
-            }
-        )
-    })
+const formAddProject = document.getElementById('modal-form');
+formAddProject.addEventListener('submit', sendProject);
+
+function sendProject(event){
+    event.preventDefault();
+    const formData = new FormData(formAddProject);
+    const projectTitle = formData.get('title');
+    const projectCategory = formData.get('category');
+    const projectFile = formData.get('file');
+    fetch('http://localhost:5678/api/works',{
+        method: 'POST',
+        headers: {'Authorization':'Bearer ' + tokens},
+        body: formData,
+    }).then(response => response.json())
 }
 
-sendNewProject()
+
+// async function sendNewProject(){
+    
+//     let inputPhoto = document.getElementById('add-photo')
+//     let inputTitle = document.getElementById('title')
+//     let InputCategory = document.getElementById('category')
+    
+//     formAddProject.addEventListener('submit', function(event){
+//         event.preventDefault()
+//         const formData = new formData(formAddProject);
+//         const chargeUtile = JSON.stringify(newProjetInfo)
+//         var responseClone;
+//         fetch('http://localhost:5678/api/works',{
+//             method: 'POST',
+//             headers: {'Authorization':'Bearer ' + tokens},
+//             body: chargeUtile,
+//         }).then(response => response.json())
+//     })
+// }
+
+// sendNewProject()
 
 
 
