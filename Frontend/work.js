@@ -237,40 +237,20 @@ previousButton.addEventListener('click', function(event){
 const formAddProject = document.getElementById('modal-form');
 formAddProject.addEventListener('submit', sendProject);
 
-function sendProject(event){
+async function sendProject(event){
     event.preventDefault();
     const formData = new FormData(formAddProject);
-    const projectTitle = formData.get('title');
-    const projectCategory = formData.get('category');
-    const projectFile = formData.get('file');
-    fetch('http://localhost:5678/api/works',{
+    formData.get('file')
+    formData.get('title')
+    formData.get('category')
+    fetch("http://localhost:5678/api/works",{
         method: 'POST',
         headers: {'Authorization':'Bearer ' + tokens},
         body: formData,
-    }).then(response => response.json())
+    })
 }
 
 
-// async function sendNewProject(){
-    
-//     let inputPhoto = document.getElementById('add-photo')
-//     let inputTitle = document.getElementById('title')
-//     let InputCategory = document.getElementById('category')
-    
-//     formAddProject.addEventListener('submit', function(event){
-//         event.preventDefault()
-//         const formData = new formData(formAddProject);
-//         const chargeUtile = JSON.stringify(newProjetInfo)
-//         var responseClone;
-//         fetch('http://localhost:5678/api/works',{
-//             method: 'POST',
-//             headers: {'Authorization':'Bearer ' + tokens},
-//             body: chargeUtile,
-//         }).then(response => response.json())
-//     })
-// }
-
-// sendNewProject()
 
 
 
