@@ -1,10 +1,11 @@
 // Recuperation des information du serveur pour la gallery
 
-const works = await fetch(`http://localhost:5678/api/works`).then(works => works.json())
+// const works = await fetch(`http://localhost:5678/api/works`).then(works => works.json())
 
 //creation fonction pour generer les photo depuis l'api
 
-function generateWorks(works){
+async function generateWorks(){
+    const works = await fetch(`http://localhost:5678/api/works`).then(works => works.json())
     for (let i = 0; i < works.length; i++){
         const workElement = works[i];
         // recuperation de l'élément du DOM qui acceuillera les figures
@@ -24,7 +25,7 @@ function generateWorks(works){
     }
 }
 
-generateWorks(works)
+generateWorks()
 
 // filtre tout afficher
 const buttonFilterAll = document.getElementById("filterAll");
@@ -95,7 +96,7 @@ const openModal = function (e) {
     e.preventDefault()
     const target = document.querySelector(e.target.getAttribute('href'))
     target.style.display = null;
-    target.removeAttribute('aria-hidden')
+    target.removeAttribute('aria-hidden',)
     target.setAttribute('aria-modal', 'true')
     modal = target
     modal.addEventListener('click', closeModal)
@@ -139,16 +140,61 @@ async function generateModalGallery(){
         const iconDelete = document.createElement('i');
         const imageGallery = document.createElement('img');
         imageGallery.src = galleryElement.imageUrl;
-        modalFigure.setAttribute('id', `figure${galleryElement.id}`);
-        imageGallery.setAttribute('id',`image${galleryElement.id}`);
-        iconContainer.setAttribute('id', `delete${galleryElement.id}`);
+        modalFigure.setAttribute('class', `figure-gallery`);
+        imageGallery.setAttribute('class',`image-gallery`);
+        iconContainer.setAttribute('id', `${galleryElement.id}`);
+        iconContainer.setAttribute('class', `delete-gallery`);
         iconDelete.setAttribute('class',"fa-solid fa-trash-can");
         modalGallery.appendChild(modalFigure);
         modalFigure.appendChild(imageGallery);
         modalFigure.appendChild(iconContainer);
         iconContainer.appendChild(iconDelete);
         }
+        //suppression des projets
+        const deleteBtnList = document.querySelectorAll('.delete-gallery')
+        for(const btn of deleteBtnList){
+            btn.addEventListener('click', function (event){
+            event.preventDefault()
+            const deleteId = event.target.parentElement.id;
+            fetch(`http://localhost:5678/api/works/${deleteId}`,{
+                method:'DELETE',
+                headers:{'Authorization':'Bearer ' + tokens},
+            }).then(del => {
+                const modalGallery = document.querySelector('.modal-photo');
+                modalGallery.innerHTML = ""
+                reGenerateModalGallery()
+                const gallery = document.querySelector(".gallery");
+                gallery.innerHTML = ""
+                generateWorks()
+            })
+        })
+    }
     })   
+}
+
+async function reGenerateModalGallery(){
+    fetch('http://localhost:5678/api/works')
+    .then(gallery => gallery.json())
+    .then((gallery)=>{
+        for(let i = 0; i < gallery.length; i++){
+        const galleryElement = gallery[i];
+        const modalGallery = document.querySelector('.modal-photo');
+        const modalFigure = document.createElement('figure');
+        const iconContainer = document.createElement('div');
+        const iconDelete = document.createElement('i');
+        const imageGallery = document.createElement('img');
+        imageGallery.src = galleryElement.imageUrl;
+        modalFigure.setAttribute('class', `figure-gallery`);
+        imageGallery.setAttribute('class',`image-gallery`);
+        iconContainer.setAttribute('id', `${galleryElement.id}`);
+        iconContainer.setAttribute('class', `delete-gallery`);
+        iconDelete.setAttribute('class',"fa-solid fa-trash-can");
+        modalGallery.appendChild(modalFigure);
+        modalFigure.appendChild(imageGallery);
+        modalFigure.appendChild(iconContainer);
+        iconContainer.appendChild(iconDelete);
+        }
+    })
 }
 
 generateModalGallery()
@@ -183,5 +229,57 @@ previousButton.addEventListener('click', function(event){
     modalTitle.style.display = 'none';
     modalForm.style.display = 'none';
     document.querySelector('.js-modal-previous').style.display = 'none';
-    
 })
+
+
+//ajout image
+
+async function sendNewProject(){
+    let formAddProject = document.getElementById('modal-form');
+    let inputPhoto = document.getElementById('add-photo')
+    let inputTitle = document.getElementById('title')
+    let InputCategory = document.getElementById('category')
+    
+    formAddProject.addEventListener('submit', function(event){
+        event.preventDefault()
+        const newProjetInfo = {
+        image : inputPhoto.value,
+        title : inputTitle.value,
+        category : InputCategory.value,
+        };
+        const chargeUtile = JSON.stringify(newProjetInfo)
+        var responseClone;
+        fetch('http://localhost:5678/api/works',{
+            method: 'POST',
+            headers: {'accept': 'application/json',
+                'Content-Type' : 'multipart/form-data',
+                'Authorization':'Bearer ' + tokens},
+            body: chargeUtile,
+        }).then(function(response){
+            responseClone = response.clone();
+            return response.json()
+        })
+        .then(function(response){
+            console.log(response)},
+            function(rejectionReason){
+                console.log('Error parsing JSON from response', rejectionReason,responseClone);
+                responseClone.text()
+                .then(function(bodyText){
+                    console.log('Received the following instead of valid JSON:', bodyText);
+                })
+            }
+        )
+    })
+}
+
+sendNewProject()
+
+
+
+
+
+
+
+
+        
+

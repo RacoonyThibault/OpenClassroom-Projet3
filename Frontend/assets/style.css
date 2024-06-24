@@ -366,7 +366,7 @@ footer nav ul {
 
 .modal-photo figure div{
 	position: relative;
-    right: 20px;
+    right: 30px;
     top: 10px;
     width: 20px;
     height: 20px;
@@ -440,7 +440,7 @@ footer nav ul {
 	color: grey;
 }
 
-#modal-form .add-photo-button .add-input-button, .submit-photo {
+#modal-form .add-photo-button .add-input-button, #submit-photo {
 	width: 70%;
 	height: 40px;
 	color: rgba(232, 241, 246, 1);
@@ -471,7 +471,7 @@ footer nav ul {
 	font-size: 17px;
 }
 
-#modal-form .submit-photo{
+#modal-form #submit-photo{
 	width: 40%;
 	height: 50px;
 	margin-top: 50px;

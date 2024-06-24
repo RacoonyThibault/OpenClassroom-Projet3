@@ -5,7 +5,7 @@ function sendConnectInfo (){
     let formLogin = document.querySelector(`.loginpage`)
     let inputEmail = document.querySelector(`input[name="email"]`)
     let inputPassword = document.querySelector(`input[name="password"]`)
-    formLogin.addEventListener(`submit`, function(event){
+    formLogin.addEventListener('submit', function(event){
         event.preventDefault();
         // creation de la charge utile
         const connectInfo = {
