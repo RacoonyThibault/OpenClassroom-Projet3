@@ -280,7 +280,7 @@ footer nav ul {
 
 #modify-banner{
 	background-color: black;
-	width: 130%;
+	width: 182%;
 	height: 60px;
 	color: white;
 	display: none;
@@ -475,7 +475,7 @@ footer nav ul {
 	border-radius: 60px;
 }
 
-#modal-form #title, #category{
+#modal-form #title-form, #category-form{
 	align-self: center;
 	width: 70%;
 	height: 50px;

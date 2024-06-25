@@ -239,7 +239,6 @@ function previewImage(event){
     const defaultImage = document.getElementById('default-image')
     const input = event.target;
     const image = document.getElementById('image-reader')
-    console.log(input.files)
 
     if (input.files && input.files[0]){
         const reader = new FileReader();
@@ -263,15 +262,23 @@ formAddProject.addEventListener('submit', sendProject);
 
 async function sendProject(event){
     event.preventDefault();
-    const formData = new FormData(formAddProject);
-    formData.get('upload-file')
-    formData.get('title-file')
-    formData.get('category-select')
+    const imageForm = document.getElementById('add-photo');
+    const titleForm = document.getElementById('title-form');
+    const categoryForm = document.getElementById('category-form');
+    const formData = new FormData();
+    formData.append('image', imageForm.files[0], imageForm.files[0].type);
+    formData.append('title', titleForm.value);
+    formData.append('category', categoryForm.value);
     fetch("http://localhost:5678/api/works",{
         method: 'POST',
         headers: {'Authorization':'Bearer ' + tokens},
         body: formData,
+    }).then((res)=>{
+        if (res.ok){
+            return res.json();
+        }
     })
+    .catch((error) => console.log(error))
 }
 
 
