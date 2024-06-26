@@ -505,6 +505,19 @@ footer nav ul {
 	align-self: center;
 }
 
+.alert-image{
+	color: red;
+	font-weight: bold;
+	display: none;
+}
+
+.alert-title{
+	color: red;
+	font-weight: bold;
+	display: none;
+	text-align: center;
+}
+
 
 
 

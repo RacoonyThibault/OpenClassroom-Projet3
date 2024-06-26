@@ -1,11 +1,10 @@
 // Recuperation des information du serveur pour la gallery
 
-// const works = await fetch(`http://localhost:5678/api/works`).then(works => works.json())
+const works = await fetch(`http://localhost:5678/api/works`).then(works => works.json())
 
 //creation fonction pour generer les photo depuis l'api
 
-async function generateWorks(){
-    const works = await fetch(`http://localhost:5678/api/works`).then(works => works.json())
+function generateWorks(works){
     for (let i = 0; i < works.length; i++){
         const workElement = works[i];
         // recuperation de l'élément du DOM qui acceuillera les figures
@@ -25,7 +24,7 @@ async function generateWorks(){
     }
 }
 
-generateWorks()
+generateWorks(works)
 
 // filtre tout afficher
 const buttonFilterAll = document.getElementById("filterAll");
@@ -39,7 +38,7 @@ buttonFilterAll.addEventListener(`click`, function(){
 const buttonFilterItems = document.getElementById("FilterItems");
 buttonFilterItems.addEventListener(`click`, function(){
     const Filtercategory = works.filter(function (work) {
-        return work.categoryId === 2;
+        return work.categoryId === 1;
     })
     
     document.querySelector(".gallery").innerHTML = "";
@@ -51,7 +50,7 @@ buttonFilterItems.addEventListener(`click`, function(){
 const buttonFilterApartment = document.getElementById("filterApartment");
 buttonFilterApartment.addEventListener(`click`, function(){
     const Filtercategory = works.filter(function (work) {
-        return work.categoryId === 1;
+        return work.categoryId === 2;
     })
     document.querySelector(".gallery").innerHTML = "";
     generateWorks(Filtercategory)
@@ -61,6 +60,7 @@ buttonFilterApartment.addEventListener(`click`, function(){
 
 const buttonFilterHotelsAndRestaurants = document.getElementById("filterHotelsAndRestaurants");
 buttonFilterHotelsAndRestaurants.addEventListener(`click`, function(){
+    console.log(works)
     const Filtercategory = works.filter(function (work) {
         return work.categoryId === 3;
     })
@@ -109,7 +109,6 @@ const closeModal = function (e) {
     if(modal === null) return
     e.preventDefault()
     modal.style.display = "none";
-    target.setAttribute('aria-hidden');
     target.removeAttribute('aria-modal');
     modal.removeEventListener('click', closeModal);
     modal.querySelector('.modal-wrapper').removeEventListener('click', stopPropagation);
@@ -165,7 +164,7 @@ async function generateModalGallery(){
                 reGenerateModalGallery()
                 const gallery = document.querySelector(".gallery");
                 gallery.innerHTML = ""
-                generateWorks()
+                generateWorks(works)
             })
         })
     }
@@ -197,7 +196,7 @@ async function reGenerateModalGallery(){
     })
 }
 
-generateModalGallery()
+generateModalGallery(works)
 
 // passage à la deuxieme modal
 
@@ -274,11 +273,17 @@ async function sendProject(event){
         headers: {'Authorization':'Bearer ' + tokens},
         body: formData,
     }).then((res)=>{
-        if (res.ok){
+        if (res.ok){ 
             return res.json();
         }
+    }).then(res => {
+    const modalGallery = document.querySelector('.modal-photo');
+        modalGallery.innerHTML = ""
+        reGenerateModalGallery()
+        const gallery = document.querySelector(".gallery");
+        gallery.innerHTML = ""
+        generateWorks(works)
     })
-    .catch((error) => console.log(error))
 }
 
 
