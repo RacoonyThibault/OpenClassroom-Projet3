@@ -285,15 +285,3 @@ async function sendProject(event){
         generateWorks(works)
     })
 }
-
-
-
-
-
-
-
-
-
-
-        
-
