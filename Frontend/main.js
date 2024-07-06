@@ -1,12 +1,24 @@
+//import des fonctions
+
+// import { generateGallery, generateModalGallery, previewImage, sendProject} from "./functions"
+
+
 // Création de la gallery
 const gallery = document.createElement('div')
 gallery.setAttribute('class', 'gallery')
 const portfolio = document.getElementById('portfolio')
 portfolio.appendChild(gallery);
-//Fonction generation gallery d'image principal
-async function generateGallery (){
-    const res = await fetch(`http://localhost:5678/api/works`);
-    const project = await res.json();
+// //Fonction generation gallery d'image principal
+async function generateGallery (param){
+    var project = null
+    fetch(`http://localhost:5678/api/works`)
+    .then(res => res.json())
+    .then(function (response){
+        if (param == null){
+        project = response
+    }else{
+        project = param
+    }
         gallery.innerHTML = ''
         for (let i = 0; i < project.length; i++){
             const projectElement = project[i];
@@ -26,13 +38,67 @@ async function generateGallery (){
             figure.appendChild(imageElement);
             figure.appendChild(titreElement);
         }
-        const buttonFilter = document.createElement('div');
-        portfolio.appendChild(buttonFilter);
+    })
 }
 // Appel de la fonction
-generateGallery ()
-
+generateGallery (null)
 // Création des filtres
+async function generateFilter(){
+    // Création d'une div pour contenir les filtres
+    const target = document.querySelector('.modify-button');
+    const divFilter = document.createElement('div');
+    divFilter.setAttribute('class', 'div-filter');
+    // Placement de la div entre le titre et la gallery
+    target.insertAdjacentElement("afterend", divFilter)
+    // Appel de l'api qui renvoyant les categories
+    const res = await fetch('http://localhost:5678/api/categories');
+    const category = await res.json();
+    // Création et ajjout d'un nouvel objet qui servira de filtre default
+    category.unshift({id: 0, name: "Tous"})
+    // Boucles de créations des filtres
+    for(let i = 0; i < category.length; i++){
+        const categoryElement = category[i]
+        const filterBtn = document.createElement('button');
+        filterBtn.id = categoryElement.id;
+        filterBtn.classList=`btn-filter ${categoryElement.name}`
+        filterBtn.innerText = `${categoryElement.name}`
+        divFilter.appendChild(filterBtn);
+    }
+    filterProject ()
+}
+generateFilter()
+
+// Fonction gestion des filtres projets
+function filterProject (){
+    const listFilterBtn = document.getElementsByClassName('btn-filter')
+    for(const btn of listFilterBtn){
+        btn.addEventListener('click', async(e) =>{
+            e.preventDefault();
+            const res =  await fetch(`http://localhost:5678/api/works`);
+            const project =  await res.json();
+            const filterId = e.target.id;
+            if (filterId === '0'){
+                generateGallery (project)
+            }else if (filterId === '1'){
+                const Filtercategory = project.filter(function (work) {
+                    return work.categoryId === 1;
+                })
+                generateGallery (Filtercategory)
+
+            }else if (filterId === '2'){
+                const Filtercategory = project.filter(function (work) {
+                    return work.categoryId === 2;
+                })
+                generateGallery (Filtercategory)
+            }else if (filterId === '3'){
+                const Filtercategory = project.filter(function (work) {
+                    return work.categoryId === 3;
+                })
+                generateGallery (Filtercategory)
+            }
+        })
+    }
+}
 
 
 // Changement de la page si token
@@ -84,7 +150,7 @@ modal.addEventListener('click', (e) => {
 
 // Generation de la gallery de la modal
 
-// Création de la gallery modal
+// // Création de la gallery modal
 async function generateModalGallery(){
     fetch('http://localhost:5678/api/works')
     .then(gallery => gallery.json())
@@ -93,22 +159,20 @@ async function generateModalGallery(){
         const galleryElement = gallery[i];
         const modalGallery = document.querySelector('.modal-photo');
         const modalFigure = document.createElement('figure');
-        const iconContainer = document.createElement('div');
-        const iconDelete = document.createElement('i');
+        const deleteButton = document.createElement('button');
         const imageGallery = document.createElement('img');
         imageGallery.src = galleryElement.imageUrl;
         modalFigure.setAttribute('class', `figure-gallery`);
         imageGallery.setAttribute('class',`image-gallery`);
-        iconContainer.setAttribute('id', `${galleryElement.id}`);
-        iconContainer.setAttribute('class', `delete-gallery`);
-        iconDelete.setAttribute('class',"fa-solid fa-trash-can");
+        deleteButton.innerHTML = '<i class="fa-solid fa-trash-can"></i>'
+        deleteButton.setAttribute('class','delete-button');
+        deleteButton.id = `${galleryElement.id}`
         modalGallery.appendChild(modalFigure);
         modalFigure.appendChild(imageGallery);
-        modalFigure.appendChild(iconContainer);
-        iconContainer.appendChild(iconDelete);
+        modalFigure.appendChild(deleteButton);
         }
         //suppression des projets
-        const deleteBtnList = document.querySelectorAll('.delete-gallery')
+        const deleteBtnList = document.querySelectorAll('.delete-button')
         for(const btn of deleteBtnList){
             btn.addEventListener('click', function (event){
             event.preventDefault()
@@ -122,7 +186,7 @@ async function generateModalGallery(){
                 generateModalGallery()
                 const gallery = document.querySelector(".gallery");
                 gallery.innerHTML = ""
-                generateGallery ()
+                generateGallery (null)
             })
         })
     }
@@ -149,7 +213,7 @@ for(const btn of deleteBtnList){
         }).then(del =>{
             const modalGallery = document.querySelector('.modal-photo');
             modalGallery.innerHTML = ""
-            generateModalGallery ()
+            generateModalGallery (null)
         })
     })
 }
@@ -188,7 +252,7 @@ previousButton.addEventListener('click', function(event){
     document.querySelector('.js-modal-previous').style.display = 'none';
 })
 
-//gestion affichage apercu image
+// //gestion affichage apercu image
 
 function previewImage(event){
     const defaultImage = document.getElementById('default-image')
@@ -197,12 +261,14 @@ function previewImage(event){
 
     if (input.files && input.files[0]){
         const reader = new FileReader();
+        document.getElementById('add-photo-label').style.display = 'none';
+        document.querySelector('.image-requirement').style.display = 'none';
 
         reader.onload = function(event){
             image.src = event.target.result;
         }
-        defaultImage.style.display = 'none'
         image.style.display = 'block'
+        defaultImage.style.display = 'none'
         reader.readAsDataURL(input.files[0]);
     }
 }
@@ -212,10 +278,11 @@ document.getElementById('add-photo').addEventListener('change', previewImage)
 
 // Selection du formulaire de la modale
 const formAddProject = document.getElementById('modal-form');
-// validForm ()
+// execution des fonctions avec un listener
+formAddProject.addEventListener('change', inputCheck)
 formAddProject.addEventListener('submit', sendProject);
 
-// Création d'une fonction pour l'ajout de nouveaux projets
+// // Création d'une fonction pour l'ajout de nouveaux projets
 async function sendProject(event){
     event.preventDefault();
     const imageForm = document.getElementById('add-photo');
@@ -244,28 +311,32 @@ async function sendProject(event){
             return res.json();
         }
     }).then(res => {
-        const modalGallery = document.querySelector('.modal-photo');
-        modalGallery.innerHTML = ""
-        generateModalGallery ()
-        const gallery = document.querySelector(".gallery");
-        gallery.innerHTML = ""
-        generateGallery ()
+            const modalGallery = document.querySelector('.modal-photo');
+            modalGallery.innerHTML = ""
+            generateModalGallery ()
+            const gallery = document.querySelector(".gallery");
+            gallery.innerHTML = ""
+            generateGallery (null)
+            const image = document.getElementById('image-reader')
+            image.src = "";
+            image.style.display = "none";
+            titleForm.value = null;
+            const defaultImage = document.getElementById('default-image');
+            defaultImage.style.display = 'block';
+            document.getElementById('add-photo-label').style.display = 'block';
+            document.querySelector('.image-requirement').style.display = 'block';
+    
     })
+    .catch((error)=> console.log(error))
 }
 
-// Fonction verification validiter des champs du formulaire
+//fonction qui check les inputs et 
 
-// function validForm () {
-//     const submitButton = document.getElementById('submit-photo');
-//     const imageForm = document.getElementById('add-photo');
-//     const titleForm = document.getElementById('title-form');
-//     submitButton.addEventListener('mouseover', (e) => {
-//         if(imageForm.files.length <= 0 && imageForm.size > 4 * 1024 * 1024){
-//         document.querySelector('.alert-image').style.display = 'block';
-//     }else if (titleForm.value == null && titleForm.value ==""){
-//         
-//     }else if (titleForm.value !== null && titleForm.value !=="" && imageForm.files.length > 0){
-//         submitButton.style.backgroundColor = '#1D6154';
-//     }
-//     })
-// }
+function inputCheck() {
+    const imageForm = document.getElementById('add-photo');
+    const titleForm = document.getElementById('title-form');
+    if(titleForm.value !== null && titleForm.value !=="" && imageForm.files.length > 0){
+        document.querySelector('.submit-btn-photo').disabled = false;
+        document.querySelector('.submit-btn-photo').style.backgroundColor = '#1D6154'
+    }
+}

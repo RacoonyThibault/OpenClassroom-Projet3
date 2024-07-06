@@ -50,7 +50,9 @@ h2{
 	margin-bottom: 1em;
 }
 
-.filter-menu{
+/* Filtres */
+
+.div-filter{
 	display: grid;
 	width: 100%;
 	grid-template-columns: 8% 8% 12% 15%;
@@ -69,7 +71,7 @@ button{
     font-size: 15px;
 }
 
-.filter:hover{
+.btn-filter:hover{
 	background-color: #1D6154;
 	color: white;
 }
@@ -185,6 +187,7 @@ dialog::backdrop {
 .switch-modal-button{
 	width: 100%;
 	display: flex;
+	flex-direction: row-reverse;
 	align-items: baseline;
 	justify-content: space-between;
 	height: 40px;
@@ -220,18 +223,18 @@ dialog::backdrop {
 	display: flex;
 }
 
-.modal-photo figure div{
+.delete-button{
 	position: relative;
-    right: 30px;
-    top: 10px;
-    width: 20px;
-    height: 20px;
-	color: #fff;
-    background: black;
-	text-align: center;
-	display: flex;
-	justify-content: center;
-    align-items: center;
+	right: 30px;
+	top: 10px;
+	background-color: black;
+	color: white;
+	border: 1px solid black;
+	border-radius: 5px;
+	font-size: 13px;
+	height: 26px;
+	width: 25px;
+
 }
 
 
@@ -354,6 +357,10 @@ dialog::backdrop {
 	margin-top: 50px;
 	font-size: 18px;
 	align-self: center;
+}
+
+.css-line{
+	border: 2px solid grey;
 }
 
 .alert-image{
