@@ -1,0 +1,94 @@
+/* Page Formulaire */
+
+header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+
+.login-nav{
+	font-weight: bold;
+}
+
+.login{
+	width: 50%;
+	margin: 0px 285px 285px 285px;
+}
+ 
+.loginpage{
+	display:flex;
+	flex-direction: column;
+	text-align: left;
+	margin-top: 50px;
+	gap: 30px;
+}
+
+.loginpage input{
+	height: 50px;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+	font-size: 1.2em;
+	border: none;
+}
+
+.login h1{
+	color: #1D6154;
+	text-align: center;
+	font-size: 30px;
+	font-weight: 700;
+	margin-top: 120px;
+}
+
+#invalid-login{
+	color: red;
+	display: none;
+
+}
+
+.loginpage a{
+	text-decoration: underline;
+}
+
+/* Style Formulaire */
+
+.login-nav{
+	font-weight: bold;
+}
+
+.login{
+	width: 50%;
+	margin: 0px 285px 285px 285px;
+}
+ 
+.loginpage{
+	display:flex;
+	flex-direction: column;
+	text-align: left;
+	margin-top: 50px;
+	gap: 30px;
+}
+
+.loginpage input{
+	height: 50px;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+	font-size: 1.2em;
+	border: none;
+}
+
+.login h1{
+	color: #1D6154;
+	text-align: center;
+	font-size: 30px;
+	font-weight: 700;
+	margin-top: 120px;
+}
+
+#invalid-login{
+	color: red;
+	display: none;
+
+}
+
+.loginpage a{
+	text-decoration: underline;
+}

@@ -6,19 +6,27 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<script src="https://kit.fontawesome.com/5d3e52f992.js" crossorigin="anonymous"></script>
 	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
 	<meta name="description" content="">
-	<link rel="stylesheet" href="./assets/style.css">
-	<script type="module" src="work.js" defer></script>
+	<link rel="stylesheet" href="./assets/Reset.css">
+	<link rel="stylesheet" href="./assets/Global.css">
+	<link rel="stylesheet" href="./assets/Index.css">
+	<script type="module" src="main.js" defer></script>
 </head>
 <body>
 <header>
-	<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
+	<div id="modify-banner">
+		<p><i class="fa-regular fa-pen-to-square"></i>mode édition</p>
+	</div>
 	<nav>
+		<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
 		<ul>
-			<li>projets</li>
-			<li>contact</li>
-			<li>login</li>
+			<li><a href="#portfolio">projets</a></li>
+			<li><a href="#contact">contact</a></li>
+			<li><a href="loginpage.html" id="login-link">login</a>
+				<a href="" id="logout-link">Logout</a>
+			</li>
 			<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
 		</ul>
 	</nav>
@@ -36,8 +44,43 @@
 		</article>
 	</section>
 	<section id="portfolio">
+		<div class="modify-button">
 		<h2>Mes Projets</h2>
-		<div class="gallery">
+		<button data-open-modal id="open-modal"><i class="fa-regular fa-pen-to-square"></i>modifier</button>
+		</div>
+		<dialog data-modal class="modal">
+			<div class="modal-content">
+				<div class="switch-modal-button">
+
+					<button data-close-modal id="switch-button-one"><i class="fa-solid fa-xmark"></i></button>
+					<button class="js-modal-previous" id="switch-button-two"><i class="fa-solid fa-arrow-left"></i></button>
+				</div>
+				<h2 class="title-modal-gallery">Galerie photo</h2>
+				<h2 id="title-add-photo">Ajout photo</h2>
+				<div class="modal-photo"></div>
+				<form enctype="multipart/form-data" method="post" id="modal-form" class="form-hidden">
+					<div class="add-photo-content">
+						<img src="" alt="image upload" id="image-reader">
+						<i class="fa-regular fa-image" id="default-image"></i>
+						<label for="add-photo" id="add-photo-label">+ Ajouter photo</label>
+						<p class="alert-image">! ATTENTION ! Veuillez sélectionner un fichier image !</p>
+						<input type="file" name="upload-file" id="add-photo" accept=".png, .jpg, .jpeg">
+						<p class="image-requirement">jpg, png : 4mo max</p>
+					</div>
+						<label for="title-form" class="label-title">Titre</label>
+						<input type="text" id="title-form" name="title-file">
+						<p class="alert-title">! ATTENTION ! Veuillez donner un titre au projet !</p>
+						<label for="category-form" class="label-category">Catégorie</label>
+						<select id="category-form" name="category-select">
+							<option value="1">Objets</option>
+							<option value="2">Appartements</option>
+							<option value="3">Hotels & restaurants</option>
+						<input type="submit" disabled value="Valider" id="submit-photo" class="submit-btn-photo">
+				</form>
+				<button class="add-photo-modal-button">Ajouter une photo</button>
+			</div>
+			</dialog>
+		</aside>
 		</div>
 	</section>
 	<section id="contact">
