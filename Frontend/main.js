@@ -172,11 +172,16 @@ async function generateModalGallery(){
         modalFigure.appendChild(deleteButton);
         }
         //suppression des projets
+        
+        // Selection de tout les divs de suppression dans une variable
         const deleteBtnList = document.querySelectorAll('.delete-button')
+        // pour tout les bouton de la liste
         for(const btn of deleteBtnList){
+            // EventListener sur chaque click de bouton
             btn.addEventListener('click', function (event){
             event.preventDefault()
             const deleteId = event.target.parentElement.id;
+            // Appel de l'api avec la method 'DELETE'
             fetch(`http://localhost:5678/api/works/${deleteId}`,{
                 method:'DELETE',
                 headers:{'Authorization':'Bearer ' + tokens},
@@ -196,27 +201,6 @@ async function generateModalGallery(){
 // Appel de la fonction generation de la gallery modal
 generateModalGallery()
 
-// Suppression des projets
-
-// Selection de tout les divs de suppression dans une variable
-const deleteBtnList = document.querySelectorAll('.delete-gallery')
-// pour tout les bouton de la liste
-for(const btn of deleteBtnList){
-    // EventListener sur chaque click de bouton
-    btn.addEventListener('click', (e) =>{
-        e.preventDefault();
-        const deleteId = e.target.parentElement.id;
-        // Appel de l'api avec la method 'DELETE'
-        fetch(`http://localhost:5678/api/works/${deleteId}`,{
-            method:'DELETE',
-            headers:{'Authorization':'Bearer ' + tokens},
-        }).then(del =>{
-            const modalGallery = document.querySelector('.modal-photo');
-            modalGallery.innerHTML = ""
-            generateModalGallery (null)
-        })
-    })
-}
 
 // passage à la deuxieme modal
 
@@ -318,19 +302,20 @@ async function sendProject(event){
             gallery.innerHTML = ""
             generateGallery (null)
             const image = document.getElementById('image-reader')
-            image.src = "";
+            image.src = null;
             image.style.display = "none";
             titleForm.value = null;
             const defaultImage = document.getElementById('default-image');
             defaultImage.style.display = 'block';
             document.getElementById('add-photo-label').style.display = 'block';
             document.querySelector('.image-requirement').style.display = 'block';
-    
+            document.querySelector('.submit-btn-photo').disabled = true;
+            document.querySelector('.submit-btn-photo').style.backgroundColor = "#cbd6dc"
     })
     .catch((error)=> console.log(error))
 }
 
-//fonction qui check les inputs et 
+//fonction qui check les inputs et autorise le submit
 
 function inputCheck() {
     const imageForm = document.getElementById('add-photo');
